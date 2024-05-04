@@ -13,6 +13,18 @@ namespace MultiShop.IdentityServer
             {
                 //token içerisinde ResourceCatalog key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
                 Scopes={"CatalogFullPermission","CatalogReadPermission"}
+            },
+
+            new ApiResource("ResourceDiscount")
+            {
+                //token içerisinde ResourceDiscount key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
+                Scopes={ "DiscountFullPermission" }
+            },
+
+            new ApiResource("ResourceOrder")
+            {
+                //token içerisinde ResourceOrder key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
+                Scopes={ "OrderFullPermission" }
             }
         };
 
@@ -35,7 +47,10 @@ namespace MultiShop.IdentityServer
             //token bilgisi içerisinde CatalogReadPermission yetkisi var ise parantez içerisindeki ikinci çifttırnak
             //içerisinde bulunan ifadedeki işlemleri yapabilsin. Yani burada CatalogReadPermission sahip bir kullanıcı
             //Catalog işlemleri için sadece okuma yetkisine sahip oluyor.
-            new ApiScope("CatalogReadPermission","Reading authority for catalog operations")
+            new ApiScope("CatalogReadPermission","Reading authority for catalog operations"),
+
+            new ApiScope("DiscountFullPermission","Full authority for discount operations"),
+            new ApiScope("OrderFullPermission","Full authority for order operations")
         };
     }
 }
