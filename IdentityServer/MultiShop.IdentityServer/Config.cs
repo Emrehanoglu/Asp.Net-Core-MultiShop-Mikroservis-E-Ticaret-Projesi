@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System.Collections.Generic;
 
 namespace MultiShop.IdentityServer
@@ -51,6 +52,45 @@ namespace MultiShop.IdentityServer
 
             new ApiScope("DiscountFullPermission","Full authority for discount operations"),
             new ApiScope("OrderFullPermission","Full authority for order operations")
+        };
+
+        public static IEnumerable<Client> Clients => new Client[]
+        {
+            //Visitor rolundeki kullanıcının sahip olacagı izinler
+            new Client
+            {
+                ClientId = "MultiShopVisitorId",
+                ClientName = "Multi Shop Visitor User",
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                ClientSecrets = {new Secret("multishopsecret".Sha256())},
+                AllowedScopes = { "CatalogReadPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+            },
+
+            //Manager rolundeki kullanıcının sahip olacagı izinler
+            new Client
+            {
+                ClientId = "MultiShopManagerId",
+                ClientName = "Multi Shop Manager User",
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                ClientSecrets = {new Secret("multishopsecret".Sha256())},
+                AllowedScopes = { "CatalogFullPermission","CatalogReadPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+            },
+
+            //Admin rolundeki kullanıcının sahip olacagı izinler
+            new Client
+            {
+                ClientId = "MultiShopAdminId",
+                ClientName = "Multi Shop Admin User",
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                ClientSecrets = {new Secret("multishopsecret".Sha256())},
+                AllowedScopes = { "CatalogFullPermission","CatalogReadPermission",
+                "DiscountFullPermission", "OrderFullPermission",
+                IdentityServerConstants.LocalApi.ScopeName,
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.Email,
+                IdentityServerConstants.StandardScopes.Profile}, //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                AccessTokenLifetime=600 //token 'ın omru 600 saniye yanı 10dk olacak.
+            },
         };
     }
 }
