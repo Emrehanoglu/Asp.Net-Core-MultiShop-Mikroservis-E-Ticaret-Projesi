@@ -12,7 +12,7 @@ public class OrderContext:DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=localhost,1434;initial Catalog=MultiShopOrderDb;" +
+        optionsBuilder.UseSqlServer("Server=localhost,1440;initial Catalog=MultiShopOrderDb;" +
             "User=sa;Password=123456eE.");
     }
     public DbSet<Address> Addresses { get; set; }
