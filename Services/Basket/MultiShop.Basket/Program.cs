@@ -5,10 +5,15 @@ using Microsoft.Extensions.Options;
 using MultiShop.Basket.LoginService;
 using MultiShop.Basket.Services;
 using MultiShop.Basket.Settings;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+//sisteme giriþ yapan kullanýcýnýn sub degerini maplemeden getirecek,
+//bu sayede userId bilgisine kolayca ulaþabileceðim
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
