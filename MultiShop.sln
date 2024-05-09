@@ -50,6 +50,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShop.Cargo.DtoLayer", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShop.Cargo.WebApi", "Services\Cargo\MultiShop.Cargo.WebApi\MultiShop.Cargo.WebApi.csproj", "{7B4A44F0-723F-4B5E-B8F8-E4043799CC2D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{138DC070-BC1C-4370-82DA-26F8227C6495}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Basket", "Services\Basket\MultiShop.Basket\MultiShop.Basket.csproj", "{F52316FF-1846-4C8A-BE46-7BAE8F7FD936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +108,10 @@ Global
 		{7B4A44F0-723F-4B5E-B8F8-E4043799CC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4A44F0-723F-4B5E-B8F8-E4043799CC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4A44F0-723F-4B5E-B8F8-E4043799CC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52316FF-1846-4C8A-BE46-7BAE8F7FD936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52316FF-1846-4C8A-BE46-7BAE8F7FD936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52316FF-1846-4C8A-BE46-7BAE8F7FD936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52316FF-1846-4C8A-BE46-7BAE8F7FD936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +136,8 @@ Global
 		{8F5DB49C-6F56-4C1E-B095-E68A1CB095E3} = {614F38F8-458B-4F71-8BD8-BDB2EA7186DC}
 		{E1B005B5-8DC2-4CAB-B1B1-DB71C588E42F} = {614F38F8-458B-4F71-8BD8-BDB2EA7186DC}
 		{7B4A44F0-723F-4B5E-B8F8-E4043799CC2D} = {614F38F8-458B-4F71-8BD8-BDB2EA7186DC}
+		{138DC070-BC1C-4370-82DA-26F8227C6495} = {46C386CB-8D79-4F2B-8F5E-9E9CC9E010CF}
+		{F52316FF-1846-4C8A-BE46-7BAE8F7FD936} = {138DC070-BC1C-4370-82DA-26F8227C6495}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16313DEE-DFD9-4992-8784-2D491B7F82E4}

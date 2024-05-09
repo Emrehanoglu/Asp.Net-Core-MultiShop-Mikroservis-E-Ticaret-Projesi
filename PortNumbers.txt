@@ -3,3 +3,4 @@ Catalog		---> 7260
 Discount	---> 7261
 Order		---> 7262
 Cargo		---> 7263
+Redis		---> 7264
