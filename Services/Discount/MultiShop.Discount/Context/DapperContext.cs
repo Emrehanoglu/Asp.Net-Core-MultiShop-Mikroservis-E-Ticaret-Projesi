@@ -19,6 +19,7 @@ public class DapperContext:DbContext
     {
         //tablomu veritabanına yansıtmak için baglantıyı burada yapacagım
         //ilerleyen sureclerde bu baglantıyı appsettings.json 'a tasıyacagım.
+        //bu kısım artık olmasada olur
         optionsBuilder.UseSqlServer("Server=DESKTOP-345EPP4\\MSSQLSERVEREMRE;initial Catalog=MultiShopDiscountDb;" +
             "integrated security=true");
     }
