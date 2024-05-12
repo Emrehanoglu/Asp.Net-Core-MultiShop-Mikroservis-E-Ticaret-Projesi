@@ -1,7 +1,10 @@
 ﻿
+@model List<ResultCategoryDto>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
 
 <section class="content container-fluid">
@@ -22,14 +25,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
-                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@item.CategoryName</td>
+                                    <td><a href="#" class="btn btn-warning">Kategoriye Ait Ürünler</a></td>
+                                    <td><a href="#" class="btn btn-danger">Sil</a></td>
+                                    <td><a href="#" class="btn btn-primary">Güncelle</a></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
+                    <a href="#" class="btn btn-success">Yeni Kategori Girişi</a>
                 </div>
             </div>
         </div>
