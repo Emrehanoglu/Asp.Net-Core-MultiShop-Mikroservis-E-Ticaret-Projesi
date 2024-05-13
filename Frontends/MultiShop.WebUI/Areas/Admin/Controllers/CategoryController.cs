@@ -43,6 +43,7 @@ public class CategoryController : Controller
     {
         return View();
     }
+ 
     [HttpPost]
     [Route("CreateCategory")]
     public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
