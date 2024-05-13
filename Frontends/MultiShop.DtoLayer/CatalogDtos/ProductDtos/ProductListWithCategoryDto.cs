@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiShop.DtoLayer.CatalogDtos.ProductDtos
+namespace MultiShop.DtoLayer.CatalogDtos.ProductDtos;
+
+public class ProductListWithCategoryDto
 {
-    internal class ResultProductWithCategoryDto
-    {
-    }
 }
