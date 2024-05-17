@@ -9,4 +9,5 @@ public class Category
     [BsonRepresentation(BsonType.ObjectId)] //benzersiz olması için 
     public string CategoryId { get; set; }
     public string CategoryName { get; set; }
+    public string ImageUrl { get; set; }
 }
