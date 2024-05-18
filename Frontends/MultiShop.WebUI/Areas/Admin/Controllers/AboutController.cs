@@ -22,9 +22,9 @@ public class AboutController : Controller
     public async Task<IActionResult> Index()
     {
         ViewBag.v1 = "Ana Sayfa";
-        ViewBag.v2 = "Kategoriler";
-        ViewBag.v3 = "Kategori Listesi";
-        ViewBag.v0 = "Kategori İşlemleri";
+        ViewBag.v2 = "Hakkımda";
+        ViewBag.v3 = "Hakkımda Listesi";
+        ViewBag.v0 = "Hakkımda İşlemleri";
 
         var client = _httpClientFactory.CreateClient();
         var responseMessage = await client.GetAsync("https://localhost:7260/api/Abouts");
@@ -41,6 +41,11 @@ public class AboutController : Controller
     [Route("CreateAbout")]
     public IActionResult CreateAbout()
     {
+        ViewBag.v1 = "Ana Sayfa";
+        ViewBag.v2 = "Hakkımda";
+        ViewBag.v3 = "Hakkımda Listesi";
+        ViewBag.v0 = "Hakkımda İşlemleri";
+
         return View();
     }
 
@@ -76,6 +81,11 @@ public class AboutController : Controller
     [Route("UpdateAbout/{id}")]
     public async Task<IActionResult> UpdateAbout(string id)
     {
+        ViewBag.v1 = "Ana Sayfa";
+        ViewBag.v2 = "Hakkımda";
+        ViewBag.v3 = "Hakkımda Listesi";
+        ViewBag.v0 = "Hakkımda İşlemleri";
+
         var client = _httpClientFactory.CreateClient();
         var responseMessage = await client.GetAsync($"https://localhost:7260/api/Abouts/" + id);
         if (responseMessage.IsSuccessStatusCode)
