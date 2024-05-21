@@ -9,4 +9,5 @@ public interface IProductDetailService
     Task CreateProductDetailAsync(CreateProductDetailDto createProductDetailDto);
     Task UpdateProductDetailAsync(UpdateProductDetailDto updateProductDetailDto);
     Task DeleteProductDetailAsync(string id);
+    Task<GetByIdProductDetailDto> GetByProductIdProductDetailAsync(string id);
 }

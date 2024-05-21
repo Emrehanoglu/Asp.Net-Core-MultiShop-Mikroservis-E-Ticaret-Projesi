@@ -12,7 +12,7 @@ namespace MultiShop.WebUI.Controllers
 
         public IActionResult ProductDetail(string id)
         {
-            ViewBag.id = id;
+            ViewBag.x = id;
             return View();
         }
     }

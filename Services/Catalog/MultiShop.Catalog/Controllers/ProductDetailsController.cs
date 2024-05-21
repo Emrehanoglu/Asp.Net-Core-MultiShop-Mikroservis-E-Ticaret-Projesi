@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.ProductDetailDtos;
 using MultiShop.Catalog.Dtos.ProductDtos;
@@ -6,6 +7,7 @@ using MultiShop.Catalog.Services.ProductDetailServices;
 
 namespace MultiShop.Catalog.Controllers;
 
+[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
 public class ProductDetailsController : ControllerBase
@@ -33,6 +35,12 @@ public class ProductDetailsController : ControllerBase
     {
         await _productDetailservice.CreateProductDetailAsync(createProductDetailDto);
         return Ok("Product Detail bilgisi eklendi.");
+    }
+    [HttpGet("GetProductDetailByProductId/{id}")]
+    public async Task<IActionResult> GetProductDetailByProductId(string id)
+    {
+        var values = await _productDetailservice.GetByProductIdProductDetailAsync(id);
+        return Ok(values);
     }
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProductDetail(string id)

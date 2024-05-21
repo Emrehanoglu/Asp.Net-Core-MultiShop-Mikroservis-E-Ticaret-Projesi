@@ -19,7 +19,7 @@ public class _ProductDetailFeatureComponentPartial:ViewComponent
         if (responseMessage.IsSuccessStatusCode)
         {
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<ResultProductDto>(jsonData);
+            var values = JsonConvert.DeserializeObject<UpdateProductDto>(jsonData);
             return View(values);
         }
         return View();
