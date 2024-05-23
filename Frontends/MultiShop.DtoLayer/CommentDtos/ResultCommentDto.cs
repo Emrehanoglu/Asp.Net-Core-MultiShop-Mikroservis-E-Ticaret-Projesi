@@ -1,6 +1,12 @@
-﻿namespace MultiShop.Comment.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class UserComment
+namespace MultiShop.DtoLayer.CommentDtos;
+
+public class ResultCommentDto
 {
     public int UserCommentId { get; set; }
     public string NameSurname { get; set; }

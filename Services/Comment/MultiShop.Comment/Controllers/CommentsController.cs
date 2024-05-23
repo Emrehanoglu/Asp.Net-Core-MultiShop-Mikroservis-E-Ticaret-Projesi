@@ -30,6 +30,12 @@ public class CommentsController : ControllerBase
         var value = _commentContext.UserComments.Find(id);
         return Ok(value);
     }
+    [HttpGet("CommentListByProductId/{id}")]
+    public IActionResult CommentListByProductId(string id)
+    {
+        var value = _commentContext.UserComments.Where(x=>x.ProductId==id).ToList();
+        return Ok(value);
+    }
     [HttpPost]
     public IActionResult CreateComment(UserComment userComment)
     {
