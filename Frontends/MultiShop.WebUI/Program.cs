@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MultiShop.WebUI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +12,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         opt.AccessDeniedPath = "/Pages/AccessDenied/"; //kullanýcý yetkisi olmayan bir sayfaya girmeye calýsýrsa yönlenecegý sayfa
         opt.Cookie.HttpOnly = true; //https yerine http kullanýmý gecerli olacak
 
-        //Cooki Konfigürasyonlarý
+        //Cookie Konfigürasyonlarý
         opt.Cookie.SameSite = SameSiteMode.Strict;
         opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
         opt.Cookie.Name = "MultiShopJwt";
     });
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddHttpClient();
 
