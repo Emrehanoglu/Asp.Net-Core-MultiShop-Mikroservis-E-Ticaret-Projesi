@@ -58,7 +58,7 @@ public class LoginController : Controller
                     var authProps = new AuthenticationProperties
                     {
                         ExpiresUtc=tokenModel.ExpireDate, //token 'ın süresi modelden gelecek olan ExpireDate kadar olsun
-                        IsPersistent = true //token hatırlansın
+                        IsPersistent = true //tarayıcı kapatilsa bile token hatırlansın
                     };
 
                     await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity),
