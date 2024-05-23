@@ -15,10 +15,12 @@ namespace MultiShop.IdentityServer.Controllers;
 public class LoginsController : ControllerBase
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public LoginsController(SignInManager<ApplicationUser> signInManager)
+    public LoginsController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
     {
         _signInManager = signInManager;
+        _userManager = userManager;
     }
     [HttpPost]
     public async Task<IActionResult> UserLogin(UserLoginDto userLoginDto)
@@ -27,12 +29,16 @@ public class LoginsController : ControllerBase
         //ikinci false parametresinde ise yanlıs giriş sonrası kullanıcıyı kitlemesin demiş oldum.
         
         var result = await _signInManager.PasswordSignInAsync(userLoginDto.Username, userLoginDto.Password, false, false);
-        
+
+        //kullanıcının id bilgisini yakalıyorum
+
+        var user = await _userManager.FindByNameAsync(userLoginDto.Username);
+
         if (result.Succeeded)
         {
             GetCheckAppUserViewModel model = new GetCheckAppUserViewModel();
             model.Username = userLoginDto.Username;
-            model.Id = "1"; //şimdilik 1 gönderiyorum
+            model.Id = user.Id;
             var token = JwtTokenGenerator.GenerateToken(model);
             return Ok(token);
         }
