@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.IdentityServer.Dtos;
 using MultiShop.IdentityServer.Models;
+using MultiShop.IdentityServer.Tools;
 using System.Threading.Tasks;
 
 namespace MultiShop.IdentityServer.Controllers;
@@ -24,10 +25,16 @@ public class LoginsController : ControllerBase
     {
         //asagıdaki ilk false parametresi beni hatırla seceneği gibi passwordu hafızaya almasın demiş oldum,
         //ikinci false parametresinde ise yanlıs giriş sonrası kullanıcıyı kitlemesin demiş oldum.
+        
         var result = await _signInManager.PasswordSignInAsync(userLoginDto.Username, userLoginDto.Password, false, false);
+        
         if (result.Succeeded)
         {
-            return Ok("Giriş başarılı");
+            GetCheckAppUserViewModel model = new GetCheckAppUserViewModel();
+            model.Username = userLoginDto.Username;
+            model.Id = "1"; //şimdilik 1 gönderiyorum
+            var token = JwtTokenGenerator.GenerateToken(model);
+            return Ok(token);
         }
         else
         {
