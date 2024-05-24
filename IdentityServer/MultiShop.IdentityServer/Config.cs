@@ -84,7 +84,7 @@ namespace MultiShop.IdentityServer
                 ClientName = "Multi Shop Visitor User",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
-                AllowedScopes = { "CatalogReadPermission", "OrderFullPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", "OrderFullPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Manager rolundeki kullanıcının sahip olacagı izinler
@@ -95,7 +95,7 @@ namespace MultiShop.IdentityServer
                 //AllowedGrantTypes = GrantTypes.ClientCredentials,
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
-                AllowedScopes = { "CatalogFullPermission","CatalogReadPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                AllowedScopes = { "CatalogFullPermission","CatalogReadPermission", "BasketFullPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Admin rolundeki kullanıcının sahip olacagı izinler
@@ -113,7 +113,7 @@ namespace MultiShop.IdentityServer
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Email,
                 IdentityServerConstants.StandardScopes.Profile}, //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
-                AccessTokenLifetime=600 //token 'ın omru 600 saniye yanı 10dk olacak.
+                AccessTokenLifetime=600 //token 'ın ömrü 600 saniye yanı 10dk olacak.
             },
         };
     }

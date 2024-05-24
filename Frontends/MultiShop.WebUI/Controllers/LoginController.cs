@@ -8,16 +8,19 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using MultiShop.WebUI.Services;
 
 namespace MultiShop.WebUI.Controllers;
 
 public class LoginController : Controller
 {
 	private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILoginService _loginService;
 
-    public LoginController(IHttpClientFactory httpClientFactory)
+    public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService)
     {
         _httpClientFactory = httpClientFactory;
+        _loginService = loginService;
     }
 
     [HttpGet]
@@ -63,6 +66,10 @@ public class LoginController : Controller
 
                     await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity),
                         authProps);
+
+                    //sisteme login olan kullanıcının id bilgisi alındı
+
+                    var id = _loginService.GetUserId;
 
                     return RedirectToAction("Index","Default");
                 }
