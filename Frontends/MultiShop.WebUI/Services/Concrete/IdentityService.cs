@@ -22,7 +22,7 @@ public class IdentityService : IIdentityService
         _httpContextAccessor = httpContextAccessor;
         _clientSettings = clientSettings.Value;
     }
-    public async Task<bool> SignIn(SignUpDto signUpDto)
+    public async Task<bool> SignIn(SignInDto signInDto)
     {
         //istek yapılacak parametrelerin konfigürasyonları yapıldı
 
@@ -40,10 +40,10 @@ public class IdentityService : IIdentityService
 
         var passwordTokenRequest = new PasswordTokenRequest
         {
-            ClientId = _clientSettings.MultiShopManagerId.ClientId,
-            ClientSecret = _clientSettings.MultiShopManagerId.ClientSecret,
-            UserName = signUpDto.Username,
-            Password = signUpDto.Password,
+            ClientId = _clientSettings.MultiShopManagerClient.ClientId,
+            ClientSecret = _clientSettings.MultiShopManagerClient.ClientSecret,
+            UserName = signInDto.Username,
+            Password = signInDto.Password,
             Address = discoveryEndPoint.TokenEndpoint
         };
 
