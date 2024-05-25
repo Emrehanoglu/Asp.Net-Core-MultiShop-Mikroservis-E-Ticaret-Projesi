@@ -82,9 +82,9 @@ namespace MultiShop.IdentityServer
             {
                 ClientId = "MultiShopVisitorId",
                 ClientName = "Multi Shop Visitor User",
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
-                AllowedScopes = { "CatalogReadPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", "BasketFullPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Manager rolundeki kullanıcının sahip olacagı izinler
