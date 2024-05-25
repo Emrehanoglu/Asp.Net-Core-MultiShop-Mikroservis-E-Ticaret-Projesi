@@ -16,7 +16,7 @@ public class IdentityService : IIdentityService
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ClientSettings _clientSettings;
 
-    public IdentityService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IOptions<ClientSettings> clientSettings, IOptions<ServiceApiSettings> serviceApiSettings)
+    public IdentityService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IOptions<ClientSettings> clientSettings)
     {
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
@@ -89,5 +89,10 @@ public class IdentityService : IIdentityService
         });
 
         authenticationProperties.IsPersistent = false;
+
+        await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            claimsPrincipal, authenticationProperties);
+
+        return true;
     }
 }
