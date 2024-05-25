@@ -81,12 +81,12 @@ public class LoginController : Controller
         return View();
     }
 
-    [HttpGet]
-    public IActionResult SignIn()
-    {
-        return View();
-    }
-    [HttpPost]
+    //[HttpGet]
+    //public IActionResult SignIn()
+    //{
+    //    return View();
+    //}
+    //[HttpPost]
     public async Task<IActionResult> SignIn(SignInDto signInDto)
     {
         signInDto.Username = "emre";
