@@ -1,8 +1,12 @@
 ﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using MultiShop.DtoLayer.IdentityDtos.LoginDtos;
 using MultiShop.WebUI.Services.Interfaces;
 using MultiShop.WebUI.Settings;
+using System.Security.Claims;
 
 namespace MultiShop.WebUI.Services.Concrete;
 
@@ -32,6 +36,7 @@ public class IdentityService : IIdentityService
         });
 
         //şimdilik sadece manager kullanıcısı için calısıyorum
+        //manager kullanıcısı için parametreleri alıyorum...
 
         var passwordTokenRequest = new PasswordTokenRequest
         {
@@ -41,5 +46,48 @@ public class IdentityService : IIdentityService
             Password = signUpDto.Password,
             Address = discoveryEndPoint.TokenEndpoint
         };
+
+        //token oluşturma işlemi...
+
+        var token = await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
+
+        var userInfoRequest = new UserInfoRequest
+        {
+            Address = discoveryEndPoint.UserInfoEndpoint,
+            Token = token.AccessToken
+        };
+
+        //gelen token bilgisi içerisinden kullanıcı bilgilerini doldurdum
+
+        var userValues = await _httpClient.GetUserInfoAsync(userInfoRequest);
+
+        ClaimsIdentity claimsIdentity = new ClaimsIdentity(userValues.Claims,
+            CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
+
+        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+        var authenticationProperties = new AuthenticationProperties();
+        authenticationProperties.StoreTokens(new List<AuthenticationToken>()
+        {
+            new AuthenticationToken
+            {
+                Name = OpenIdConnectParameterNames.AccessToken,
+                Value = token.AccessToken
+            },
+
+            new AuthenticationToken
+            {
+                Name = OpenIdConnectParameterNames.RefreshToken,
+                Value = token.RefreshToken
+            },
+
+            new AuthenticationToken
+            {
+                Name = OpenIdConnectParameterNames.ExpiresIn,
+                Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString()
+            }
+        });
+
+        authenticationProperties.IsPersistent = false;
     }
 }
