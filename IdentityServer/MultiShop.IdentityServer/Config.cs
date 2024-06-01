@@ -118,7 +118,11 @@ namespace MultiShop.IdentityServer
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
                 AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", 
                     "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
-                    "ImageFullPermission"} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                    "ImageFullPermission",
+                IdentityServerConstants.LocalApi.ScopeName,
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.Email,
+                IdentityServerConstants.StandardScopes.Profile} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Manager rolundeki kullanıcının sahip olacagı izinler
