@@ -39,6 +39,24 @@ namespace MultiShop.IdentityServer
                 //token içerisinde ResourceBasket key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
                 Scopes={ "BasketFullPermission" }
             },
+            
+            new ApiResource("ResourceComment")
+            {
+                //token içerisinde ResourceComment key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
+                Scopes={ "CommentFullPermission" }
+            },
+
+            new ApiResource("ResourcePayment")
+            {
+                //token içerisinde ResourcePayment key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
+                Scopes={ "PaymentFullPermission" }
+            },
+
+            new ApiResource("ResourceImage")
+            {
+                //token içerisinde ResourceImage key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
+                Scopes={ "ImageFullPermission" }
+            },
 
             new ApiResource("ResourceOcelot")
             {
@@ -78,6 +96,12 @@ namespace MultiShop.IdentityServer
 
             new ApiScope("BasketFullPermission","Full authority for basket operations"),
 
+            new ApiScope("CommentFullPermission","Full authority for comment operations"),
+
+            new ApiScope("PaymentFullPermission","Full authority for payment operations"),
+
+            new ApiScope("ImageFullPermission","Full authority for image operations"),
+
             new ApiScope("OcelotFullPermission","Full authority for ocelot operations"),
 
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
@@ -93,7 +117,8 @@ namespace MultiShop.IdentityServer
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
                 AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", 
-                    "BasketFullPermission", "OcelotFullPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                    "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
+                    "ImageFullPermission"} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Manager rolundeki kullanıcının sahip olacagı izinler
@@ -105,7 +130,8 @@ namespace MultiShop.IdentityServer
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
                 AllowedScopes = { "CatalogFullPermission","CatalogReadPermission", 
-                    "BasketFullPermission", "OcelotFullPermission" } //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                    "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
+                    "PaymentFullPermission","ImageFullPermission"} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Admin rolundeki kullanıcının sahip olacagı izinler
@@ -118,7 +144,8 @@ namespace MultiShop.IdentityServer
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
                 AllowedScopes = { "CatalogFullPermission","CatalogReadPermission",
                 "DiscountFullPermission", "OrderFullPermission", "CargoFullPermission",
-                "BasketFullPermission", "OcelotFullPermission",
+                "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission",
+                "ImageFullPermission",
                 IdentityServerConstants.LocalApi.ScopeName,
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Email,
