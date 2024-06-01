@@ -1,7 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.Authority = builder.Configuration["IdentityServerUrl"];
+    opt.Audience = "ResourceOcelot";
+    opt.RequireHttpsMetadata = false; //artýk https ile calýsmayacagým.
+});
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("ocelot.json").Build();
 
