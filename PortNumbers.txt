@@ -6,3 +6,5 @@ Order		---> 7262
 Cargo		---> 7263
 Basket		---> 7264
 Comment		---> 7265
+Payment		---> 7266
+Images		---> 7267
