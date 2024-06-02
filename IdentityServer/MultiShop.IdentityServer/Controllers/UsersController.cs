@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.IdentityServer.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace MultiShop.IdentityServer.Controllers;
 
+[Authorize(LocalApi.PolicyName)]
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
@@ -19,7 +22,7 @@ public class UsersController : ControllerBase
         _userManager = userManager;
     }
 
-    [HttpGet]
+    [HttpGet("GetUser")]
     public async Task<IActionResult> GetUser()
     {
         //JwtRegisteredClaimNames.Sub ile kullanıcının id 'sine erişim saglayacagım
