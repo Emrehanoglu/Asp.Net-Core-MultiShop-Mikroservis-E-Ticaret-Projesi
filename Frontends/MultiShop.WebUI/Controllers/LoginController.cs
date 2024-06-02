@@ -8,7 +8,6 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
-using MultiShop.WebUI.Services;
 using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Controllers;
