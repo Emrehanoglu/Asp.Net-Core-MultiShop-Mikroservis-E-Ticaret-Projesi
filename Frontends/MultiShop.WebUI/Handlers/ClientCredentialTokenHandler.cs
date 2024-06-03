@@ -15,7 +15,7 @@ public class ClientCredentialTokenHandler:DelegatingHandler
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        //üye olmayıpta giriş yapan kullanıcılar için token alacagım ve işleme sokacagım
+        //üye olmayıp da giriş yapan kullanıcılar için token alacagım ve işleme sokacagım
 
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _clientCredentialTokenService.GetToken());
         
