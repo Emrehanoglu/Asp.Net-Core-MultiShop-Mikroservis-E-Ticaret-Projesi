@@ -1,6 +1,7 @@
-﻿namespace MultiShop.WebUI.Services.Interfaces;
-
-public interface IClientCredentialTokenService
+﻿namespace MultiShop.WebUI.Services.Interfaces
 {
-    Task<string> GetToken();
+    public interface IClientCredentialTokenService
+    {
+        Task<string> GetToken();
+    }
 }

@@ -32,6 +32,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.SlidingExpiration = true;
     });
 
+builder.Services.AddAccessTokenManagement();
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ILoginService, LoginService>();
@@ -53,6 +55,7 @@ builder.Services.AddScoped<ClientCredentialTokenHandler>();
 builder.Services.AddHttpClient<IClientCredentialTokenService,ClientCredentialTokenService>();
 
 var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 {
     opt.BaseAddress = new Uri(values.IdentityServerUrl);

@@ -13,10 +13,8 @@ namespace MultiShop.WebUI.Services.Concrete
         private readonly HttpClient _httpClient;
         private readonly IClientAccessTokenCache _clientAccessTokenCache;
         private readonly ClientSettings _clientSettings;
-        public ClientCredentialTokenService(IOptions<ServiceApiSettings> serviceApiSettings, 
-            HttpClient httpClient, 
-            IClientAccessTokenCache clientAccessTokenCache, 
-            IOptions<ClientSettings> clientSettings)
+
+        public ClientCredentialTokenService(IOptions<ServiceApiSettings> serviceApiSettings, HttpClient httpClient, IClientAccessTokenCache clientAccessTokenCache, IOptions<ClientSettings> clientSettings)
         {
             _serviceApiSettings = serviceApiSettings.Value;
             _httpClient = httpClient;
@@ -26,19 +24,17 @@ namespace MultiShop.WebUI.Services.Concrete
 
         public async Task<string> GetToken()
         {
-            var currentToken = await _clientAccessTokenCache.GetAsync("multishoptoken");
-            
-            if(currentToken != null)
+            var token1 = await _clientAccessTokenCache.GetAsync("multishoptoken");
+            if (token1 != null)
             {
-                return currentToken.AccessToken;
+                return token1.AccessToken;
             }
-
             var discoveryEndPoint = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _serviceApiSettings.IdentityServerUrl,
                 Policy = new DiscoveryPolicy
                 {
-                    RequireHttps = false        //https yerine http kullanımı olacak
+                    RequireHttps = false
                 }
             });
 
@@ -49,11 +45,9 @@ namespace MultiShop.WebUI.Services.Concrete
                 Address = discoveryEndPoint.TokenEndpoint
             };
 
-            var newToken = await _httpClient.RequestClientCredentialsTokenAsync(clientCredentialTokenRequest);
-
-            await _clientAccessTokenCache.SetAsync("multishoptoken", newToken.AccessToken, newToken.ExpiresIn);
-
-            return newToken.AccessToken;
+            var token2 = await _httpClient.RequestClientCredentialsTokenAsync(clientCredentialTokenRequest);
+            await _clientAccessTokenCache.SetAsync("multishoptoken", token2.AccessToken, token2.ExpiresIn);
+            return token2.AccessToken;
         }
     }
 }

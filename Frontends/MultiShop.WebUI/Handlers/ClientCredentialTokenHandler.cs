@@ -2,30 +2,27 @@
 using System.Net;
 using System.Net.Http.Headers;
 
-namespace MultiShop.WebUI.Handlers;
-
-public class ClientCredentialTokenHandler:DelegatingHandler
+namespace MultiShop.WebUI.Handlers
 {
-    private readonly IClientCredentialTokenService _clientCredentialTokenService;
-
-    public ClientCredentialTokenHandler(IClientCredentialTokenService clientCredentialTokenService)
-    {
-        _clientCredentialTokenService = clientCredentialTokenService;
-    }
-
-    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    public class ClientCredentialTokenHandler : DelegatingHandler
     {
         //üye olmayıp da giriş yapan kullanıcılar için token alacagım ve işleme sokacagım
 
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _clientCredentialTokenService.GetToken());
-        
-        var response = await base.SendAsync(request, cancellationToken);
-
-        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        private readonly IClientCredentialTokenService _clientCredentialTokenService;
+        public ClientCredentialTokenHandler(IClientCredentialTokenService clientCredentialTokenService)
         {
-            //hata mesajı
+            _clientCredentialTokenService = clientCredentialTokenService;
         }
-
-        return response;
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _clientCredentialTokenService.GetToken());
+            var response = await base.SendAsync(request, cancellationToken);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                //hata mesajı
+            }
+            return response;
+        }
     }
 }
+
