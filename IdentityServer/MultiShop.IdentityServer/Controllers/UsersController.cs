@@ -11,12 +11,12 @@ using static IdentityServer4.IdentityServerConstants;
 namespace MultiShop.IdentityServer.Controllers;
 
 [Authorize(LocalApi.PolicyName)]
+
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
-
     public UsersController(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
@@ -25,14 +25,12 @@ public class UsersController : ControllerBase
     [HttpGet("GetUser")]
     public async Task<IActionResult> GetUser()
     {
-        //JwtRegisteredClaimNames.Sub ile kullanıcının id 'sine erişim saglayacagım
         var userClaim = User.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
-
         var user = await _userManager.FindByIdAsync(userClaim.Value);
         return Ok(new
         {
             Id = user.Id,
-            Name = user.Name, 
+            Name = user.Name,
             Surname = user.Surname,
             Email = user.Email,
             UserName = user.UserName

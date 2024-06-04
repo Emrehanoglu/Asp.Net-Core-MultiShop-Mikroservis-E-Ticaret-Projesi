@@ -6,8 +6,6 @@ namespace MultiShop.WebUI.Handlers
 {
     public class ClientCredentialTokenHandler : DelegatingHandler
     {
-        //üye olmayıp da giriş yapan kullanıcılar için token alacagım ve işleme sokacagım
-
         private readonly IClientCredentialTokenService _clientCredentialTokenService;
         public ClientCredentialTokenHandler(IClientCredentialTokenService clientCredentialTokenService)
         {
