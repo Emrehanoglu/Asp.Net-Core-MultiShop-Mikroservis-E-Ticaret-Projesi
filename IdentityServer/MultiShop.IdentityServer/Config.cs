@@ -119,10 +119,7 @@ namespace MultiShop.IdentityServer
                 AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", 
                     "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
                     "ImageFullPermission",
-                IdentityServerConstants.LocalApi.ScopeName,
-                IdentityServerConstants.StandardScopes.OpenId,
-                IdentityServerConstants.StandardScopes.Email,
-                IdentityServerConstants.StandardScopes.Profile} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                IdentityServerConstants.LocalApi.ScopeName} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Manager rolundeki kullanıcının sahip olacagı izinler
@@ -135,7 +132,11 @@ namespace MultiShop.IdentityServer
                 ClientSecrets = {new Secret("multishopsecret".Sha256())},
                 AllowedScopes = { "CatalogFullPermission","CatalogReadPermission", 
                     "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
-                    "PaymentFullPermission","ImageFullPermission"} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                    "PaymentFullPermission","ImageFullPermission",
+                    IdentityServerConstants.LocalApi.ScopeName,
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Email,
+                    IdentityServerConstants.StandardScopes.Profile} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
             //Admin rolundeki kullanıcının sahip olacagı izinler

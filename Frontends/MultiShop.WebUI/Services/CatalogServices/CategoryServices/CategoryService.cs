@@ -16,7 +16,7 @@ public class CategoryService : ICategoryService
     }
     public async Task DeleteCategoryAsync(string id)
     {
-        await _httpClient.DeleteAsync("categories?id=" + id);
+        await _httpClient.DeleteAsync("categories/" + id);
     }
     public async Task<UpdateCategoryDto> GetByIdCategoryAsync(string id)
     {
