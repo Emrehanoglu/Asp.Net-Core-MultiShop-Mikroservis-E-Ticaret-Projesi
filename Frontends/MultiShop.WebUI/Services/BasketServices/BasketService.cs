@@ -11,9 +11,19 @@ namespace MultiShop.WebUI.Services.BasketServices
             _httpClient = httpClient;
         }
 
-        public Task AddBasketItem(BasketItemDto basketItemDto)
+        public async Task AddBasketItem(BasketItemDto basketItemDto)
         {
-            throw new NotImplementedException();
+            var values = await GetBasket();
+            if(!values.BasketItems.Any(x=>x.ProductId == basketItemDto.ProductId))
+            {
+                values.BasketItems.Add(basketItemDto);
+            }
+            else
+            {
+                values = await GetBasket();
+                values.BasketItems.Add(basketItemDto);
+            }
+            await SaveBasket(values);
         }
 
         public Task DeleteBasket(string userId)
@@ -21,7 +31,7 @@ namespace MultiShop.WebUI.Services.BasketServices
             throw new NotImplementedException();
         }
 
-        public async Task<BasketTotalDto> GetBasket(string userId)
+        public async Task<BasketTotalDto> GetBasket()
         {
             var responseMessage = await _httpClient.GetAsync("baskets");
             var values = await responseMessage.Content.ReadFromJsonAsync<BasketTotalDto>();
