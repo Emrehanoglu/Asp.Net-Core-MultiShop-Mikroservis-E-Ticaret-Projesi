@@ -16,10 +16,9 @@ public class ShoppingCartController : Controller
         _basketService = basketService;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        var values = await _basketService.GetBasket();
-        return View(values);
+        return View();
     }
     public async Task<IActionResult> AddBasketItem(string productId)
     {
