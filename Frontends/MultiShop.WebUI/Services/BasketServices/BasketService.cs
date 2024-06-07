@@ -38,9 +38,13 @@ namespace MultiShop.WebUI.Services.BasketServices
             return values;
         }
 
-        public Task<bool> RemoveBasketItem(string productId)
+        public async Task<bool> RemoveBasketItem(string productId)
         {
-            throw new NotImplementedException();
+            var values = await GetBasket();
+            var deletedItem = values.BasketItems.FirstOrDefault(x=>x.ProductId == productId);
+            var result = values.BasketItems.Remove(deletedItem);
+            await SaveBasket(values);
+            return true;
         }
 
         public async Task SaveBasket(BasketTotalDto basketTotalDto)
