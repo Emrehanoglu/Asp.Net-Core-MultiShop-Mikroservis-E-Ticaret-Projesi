@@ -20,14 +20,15 @@ public class ShoppingCartController : Controller
     {
         return View();
     }
-    public async Task<IActionResult> AddBasketItem(string productId)
+    public async Task<IActionResult> AddBasketItem(string id)
     {
-        var values = await _productService.GetByIdProductAsync(productId);
+        var values = await _productService.GetByIdProductAsync(id);
         var items = new BasketItemDto
         {
             ProductId = values.ProductId,
             ProductName = values.ProductName,
             Price = values.ProductPrice,
+            ProductImageUrl = "image",
             Quantity = 1
         };
         await _basketService.AddBasketItem(items);

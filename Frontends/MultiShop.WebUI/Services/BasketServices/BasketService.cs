@@ -14,14 +14,17 @@ namespace MultiShop.WebUI.Services.BasketServices
         public async Task AddBasketItem(BasketItemDto basketItemDto)
         {
             var values = await GetBasket();
-            if(!values.BasketItems.Any(x=>x.ProductId == basketItemDto.ProductId))
+            if (values != null)
             {
-                values.BasketItems.Add(basketItemDto);
-            }
-            else
-            {
-                values = await GetBasket();
-                values.BasketItems.Add(basketItemDto);
+                if (!values.BasketItems.Any(x => x.ProductId == basketItemDto.ProductId))
+                {
+                    values.BasketItems.Add(basketItemDto);
+                }
+                else
+                {
+                    values = new BasketTotalDto();
+                    values.BasketItems.Add(basketItemDto);
+                }
             }
             await SaveBasket(values);
         }
@@ -41,7 +44,7 @@ namespace MultiShop.WebUI.Services.BasketServices
         public async Task<bool> RemoveBasketItem(string productId)
         {
             var values = await GetBasket();
-            var deletedItem = values.BasketItems.FirstOrDefault(x=>x.ProductId == productId);
+            var deletedItem = values.BasketItems.FirstOrDefault(x => x.ProductId == productId);
             var result = values.BasketItems.Remove(deletedItem);
             await SaveBasket(values);
             return true;
