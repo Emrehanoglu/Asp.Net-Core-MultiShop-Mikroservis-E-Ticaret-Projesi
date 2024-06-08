@@ -18,8 +18,19 @@ public class ShoppingCartController : Controller
 
     public async Task<IActionResult> Index()
     {
+        //Ürünlerin toplam fiyatı
         var values = await _basketService.GetBasket();
         ViewBag.total = values.TotalPrice;
+
+        //KDV tutarı
+        var tax = (values.TotalPrice / 100) * 10;
+        ViewBag.tax = tax;
+
+
+        //KDV tutarı ile birlikte sepetin toplam tutarının hesabı
+        var totalPriceWithTax = values.TotalPrice + (values.TotalPrice / 100) * 10;
+        ViewBag.totalPriceWithTax = totalPriceWithTax;
+
         return View();
     }
     public async Task<IActionResult> AddBasketItem(string id)
