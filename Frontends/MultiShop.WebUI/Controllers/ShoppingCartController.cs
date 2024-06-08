@@ -28,15 +28,15 @@ public class ShoppingCartController : Controller
             ProductId = values.ProductId,
             ProductName = values.ProductName,
             Price = values.ProductPrice,
-            ProductImageUrl = "image",
+            ProductImageUrl = values.ProductImageUrl,
             Quantity = 1
         };
         await _basketService.AddBasketItem(items);
         return RedirectToAction("Index");
     }
-    public async Task<IActionResult> RemoveBasketItem(string productId)
+    public async Task<IActionResult> RemoveBasketItem(string id)
     {
-        await _basketService.RemoveBasketItem(productId);
+        await _basketService.RemoveBasketItem(id);
         return RedirectToAction("Index");
     }
 }
