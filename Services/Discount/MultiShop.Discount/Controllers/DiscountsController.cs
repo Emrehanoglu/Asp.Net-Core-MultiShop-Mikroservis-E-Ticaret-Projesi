@@ -31,6 +31,13 @@ public class DiscountsController : ControllerBase
         return Ok(values);
     }
 
+    [HttpGet("GetDiscountDetailByCode/{code}")]
+    public async Task<IActionResult> GetDiscountDetailByCode(string code)
+    {
+        var values = await _discountService.GetDiscountDetailByCode(code);
+        return Ok(values);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateDiscountCoupon(CreateDiscountCouponDto createCouponDto)
     {
@@ -38,7 +45,7 @@ public class DiscountsController : ControllerBase
         return Ok("Kupon başarıyla oluşturuldu");
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteDiscountCoupon(int id)
     {
         await _discountService.DeleteCouponAsync(id);
