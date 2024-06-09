@@ -25,7 +25,7 @@ public class GetAddressQueryHandler
         {
             AddressId = x.AddressId,
             City = x.City,
-            Detail = x.Detail,
+            Detail = x.Detail1,
             District = x.District,
             UserId = x.UserId
         }).ToList();
