@@ -87,7 +87,7 @@ builder.Services.AddHttpClient<IDiscountService, DiscountService>(opt =>
 
 builder.Services.AddHttpClient<IOrderAddressService, OrderAddressService>(opt =>
 {
-    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Order.Path}");
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt =>

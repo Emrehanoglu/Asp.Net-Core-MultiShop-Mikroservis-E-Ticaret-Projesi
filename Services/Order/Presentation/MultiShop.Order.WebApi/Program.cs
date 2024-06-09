@@ -12,7 +12,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 {
     opt.Authority = builder.Configuration["IdentityServerUrl"];
     opt.Audience = "ResourceOrder";
-    opt.RequireHttpsMetadata = false; //artýk https ile calýsmayacagým.
+    opt.RequireHttpsMetadata = false;
 });
 
 builder.Services.AddDbContext<OrderContext>();

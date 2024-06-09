@@ -125,19 +125,15 @@ namespace MultiShop.IdentityServer
             //Manager rolundeki kullanıcının sahip olacagı izinler
             new Client
             {
-                ClientId = "MultiShopManagerId",
-                ClientName = "Multi Shop Manager User",
-                //AllowedGrantTypes = GrantTypes.ClientCredentials,
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                ClientSecrets = {new Secret("multishopsecret".Sha256())},
-                AllowedScopes = { "CatalogFullPermission","CatalogReadPermission", 
-                    "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
-                    "PaymentFullPermission","ImageFullPermission","DiscountFullPermission",
-                    "OrderFullPermission",
-                    IdentityServerConstants.LocalApi.ScopeName,
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Email,
-                    IdentityServerConstants.StandardScopes.Profile} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
+                ClientId="MultiShopManagerId",
+                ClientName="Multi Shop Manager User",
+                AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
+                ClientSecrets={new Secret("multishopsecret".Sha256()) },
+                AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission","DiscountFullPermission","OrderFullPermission","MessageFullPermission","CargoFullPermission",
+                IdentityServerConstants.LocalApi.ScopeName,
+                IdentityServerConstants.StandardScopes.Email,
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.Profile }
             },
 
             //Admin rolundeki kullanıcının sahip olacagı izinler
