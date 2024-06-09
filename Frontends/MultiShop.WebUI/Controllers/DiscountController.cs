@@ -28,6 +28,6 @@ public class DiscountController : Controller
         var totalPriceWithTax = basketValues.TotalPrice + (basketValues.TotalPrice / 100) * 10;
         var totalNewPriceWithDiscount = totalPriceWithTax - (totalPriceWithTax / 100 * values.Rate);
         ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
-        return View();
+        return RedirectToAction("Index", "ShoppingCart", new { code = code, discountRate = values.Rate});
     }
 }

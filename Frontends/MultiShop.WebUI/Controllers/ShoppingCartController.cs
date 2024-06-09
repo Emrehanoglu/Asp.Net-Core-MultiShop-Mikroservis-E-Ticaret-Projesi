@@ -16,7 +16,7 @@ public class ShoppingCartController : Controller
         _basketService = basketService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string code, int discountRate)
     {
         //Ürünlerin toplam fiyatı
         var values = await _basketService.GetBasket();
@@ -26,10 +26,11 @@ public class ShoppingCartController : Controller
         var tax = (values.TotalPrice / 100) * 10;
         ViewBag.tax = tax;
 
-
         //KDV tutarı ile birlikte sepetin toplam tutarının hesabı
         var totalPriceWithTax = values.TotalPrice + (values.TotalPrice / 100) * 10;
         ViewBag.totalPriceWithTax = totalPriceWithTax;
+
+        ViewBag.discountRate = discountRate;
 
         return View();
     }
