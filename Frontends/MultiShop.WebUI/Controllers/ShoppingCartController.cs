@@ -16,7 +16,7 @@ public class ShoppingCartController : Controller
         _basketService = basketService;
     }
 
-    public async Task<IActionResult> Index(string code, int discountRate)
+    public async Task<IActionResult> Index(string code, int discountRate, decimal totalNewPriceWithDiscount)
     {
         //Ürünlerin toplam fiyatı
         var values = await _basketService.GetBasket();
@@ -31,6 +31,8 @@ public class ShoppingCartController : Controller
         ViewBag.totalPriceWithTax = totalPriceWithTax;
 
         ViewBag.discountRate = discountRate;
+        ViewBag.code = code;
+        ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
 
         return View();
     }
