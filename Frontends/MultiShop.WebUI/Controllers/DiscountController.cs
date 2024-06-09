@@ -21,8 +21,13 @@ public class DiscountController : Controller
         return PartialView();
     }
     [HttpPost]
-    public PartialViewResult ConfirmDiscountCoupon(string code)
+    public async Task<IActionResult> ConfirmDiscountCoupon(string code)
     {
-        return PartialView();
+        var values = await _discountService.GetDiscountCode(code);
+        var basketValues = await _basketService.GetBasket();
+        var totalPriceWithTax = basketValues.TotalPrice + (basketValues.TotalPrice / 100) * 10;
+        var totalNewPriceWithDiscount = totalPriceWithTax - (totalPriceWithTax / 100 * values.Rate);
+        ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
+        return View();
     }
 }
