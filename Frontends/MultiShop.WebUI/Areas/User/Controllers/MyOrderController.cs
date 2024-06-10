@@ -6,6 +6,7 @@ namespace MultiShop.WebUI.Areas.User.Controllers;
 [Route("User/MyOrder")]
 public class MyOrderController : Controller
 {
+    [Route("MyOrderList")]
     public IActionResult MyOrderList()
     {
         return View();
