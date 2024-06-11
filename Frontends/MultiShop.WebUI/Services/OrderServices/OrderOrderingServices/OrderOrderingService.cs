@@ -16,7 +16,7 @@ namespace MultiShop.WebUI.Services.OrderServices.OrderOrderingServices
         {
             var responseMessage = await _httpClient.GetAsync("orderings/GetOrderingByUserId/" + id);
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<ResultOrderingByUserIdDto>(jsonData);
+            var values = JsonConvert.DeserializeObject<List<ResultOrderingByUserIdDto>>(jsonData);
             return values;
         }
     }
