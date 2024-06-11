@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShop.WebUI.Services.Interfaces;
+using MultiShop.WebUI.Services.OrderServices.OrderOrderingServices;
 
 namespace MultiShop.WebUI.Areas.User.Controllers;
 
@@ -6,9 +8,20 @@ namespace MultiShop.WebUI.Areas.User.Controllers;
 [Route("User/MyOrder")]
 public class MyOrderController : Controller
 {
-    [Route("MyOrderList")]
-    public IActionResult MyOrderList()
+    private readonly IOrderOrderingService _orderOrderingService;
+    private readonly IUserService _userService;
+
+    public MyOrderController(IOrderOrderingService orderOrderingService, IUserService userService)
     {
-        return View();
+        _orderOrderingService = orderOrderingService;
+        _userService = userService;
+    }
+
+    [Route("MyOrderList")]
+    public async Task<IActionResult> MyOrderList()
+    {
+        var user = await _userService.GetUserInfo();
+        var values = _orderOrderingService.GetOrderingByUserId(user.Id);
+        return View(values);
     }
 }
