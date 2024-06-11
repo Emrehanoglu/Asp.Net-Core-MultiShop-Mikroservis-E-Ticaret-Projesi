@@ -9,24 +9,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiShop.Order.Application.Features.Mediator.Handlers.OrderingHandlers;
-
-public class GetOrderingByUserIdQueryHandler : IRequestHandler<GetOrderingByUserIdQuery, List<GetOrderingByUserIdQueryResult>>
+namespace MultiShop.Order.Application.Features.Mediator.Handlers.OrderingHandlers
 {
-    private readonly IOrderingRepository _orderingRepository;
-    public GetOrderingByUserIdQueryHandler(IOrderingRepository repository)
+    public class GetOrderingByUserIdQueryHandler : IRequestHandler<GetOrderingByUserIdQuery, List<GetOrderingByUserIdQueryResult>>
     {
-        _orderingRepository = repository;
-    }
-    public async Task<List<GetOrderingByUserIdQueryResult>> Handle(GetOrderingByUserIdQuery request, CancellationToken cancellationToken)
-    {
-        var values = _orderingRepository.GetOrderingsByUserId(request.Id);
-        return values.Select(x => new GetOrderingByUserIdQueryResult
+        private readonly IOrderingRepository _orderingRepository;
+        public GetOrderingByUserIdQueryHandler(IOrderingRepository orderingRepository)
         {
-            OrderDate = x.OrderDate,
-            OrderingId = x.OrderingId,
-            TotalPrice = x.TotalPrice,
-            UserId = x.UserId
-        }).ToList();
+            _orderingRepository = orderingRepository;
+        }
+        public async Task<List<GetOrderingByUserIdQueryResult>> Handle(GetOrderingByUserIdQuery request, CancellationToken cancellationToken)
+        {
+            var values = _orderingRepository.GetOrderingsByUserId(request.Id);
+            return values.Select(x => new GetOrderingByUserIdQueryResult
+            {
+                OrderDate = x.OrderDate,
+                OrderingId = x.OrderingId,
+                TotalPrice = x.TotalPrice,
+                UserId = x.UserId
+            }).ToList();
+        }
     }
 }

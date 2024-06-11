@@ -1,8 +1,9 @@
 ﻿using MultiShop.DtoLayer.OrderDtos.OrderOrderingDtos;
 
-namespace MultiShop.WebUI.Services.OrderServices.OrderOrderingServices;
-
-public interface IOrderOrderingService
+namespace MultiShop.WebUI.Services.OrderServices.OrderOrderingServices
 {
-    Task<List<ResultOrderingByUserIdDto>> GetOrderingByUserId(string id);
+    public interface IOrderOrderingService
+    {
+        Task<List<ResultOrderingByUserIdDto>> GetOrderingByUserId(string id);
+    }
 }
