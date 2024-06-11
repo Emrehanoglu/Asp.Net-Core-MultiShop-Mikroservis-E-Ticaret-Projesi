@@ -13,20 +13,20 @@ namespace MultiShop.Order.Application.Features.Mediator.Handlers.OrderingHandler
 
 public class GetOrderingByUserIdQueryHandler : IRequestHandler<GetOrderingByUserIdQuery, List<GetOrderingByUserIdQueryResult>>
 {
-    private readonly IRepository<Ordering> _repository;
-    public GetOrderingByUserIdQueryHandler(IRepository<Ordering> repository)
+    private readonly IOrderingRepository _orderingRepository;
+    public GetOrderingByUserIdQueryHandler(IOrderingRepository repository)
     {
-        _repository = repository;
+        _orderingRepository = repository;
     }
     public async Task<List<GetOrderingByUserIdQueryResult>> Handle(GetOrderingByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var values = await _repository.GetByIdAsync(request.Id);
-        return new GetOrderingByIdQueryResult
+        var values = _orderingRepository.GetOrderingsByUserId(request.Id);
+        return values.Select(x => new GetOrderingByUserIdQueryResult
         {
-            OrderDate = values.OrderDate,
-            OrderingId = values.OrderingId,
-            TotalPrice = values.TotalPrice,
-            UserId = values.UserId
-        };
+            OrderDate = x.OrderDate,
+            OrderingId = x.OrderingId,
+            TotalPrice = x.TotalPrice,
+            UserId = x.UserId
+        }).ToList();
     }
 }
