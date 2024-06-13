@@ -64,6 +64,12 @@ namespace MultiShop.IdentityServer
                 Scopes={ "OcelotFullPermission" }
             },
 
+            new ApiResource("ResourceMessage")
+            {
+                //token içerisinde ResourceMessage key 'ine sahip bir kullanıcı asagıdaki yetkilere sahip olacak
+                Scopes={ "MessageFullPermission" }
+            },
+
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -103,6 +109,8 @@ namespace MultiShop.IdentityServer
             new ApiScope("ImageFullPermission","Full authority for image operations"),
 
             new ApiScope("OcelotFullPermission","Full authority for ocelot operations"),
+
+            new ApiScope("MessageFullPermission","Full authority for message operations"),
 
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
