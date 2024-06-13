@@ -127,6 +127,7 @@ namespace MultiShop.IdentityServer
                 AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", 
                     "BasketFullPermission", "OcelotFullPermission","CommentFullPermission",
                     "ImageFullPermission","DiscountFullPermission","OrderFullPermission",
+                    "MessageFullPermission",
                 IdentityServerConstants.LocalApi.ScopeName} //kullanıcının hangi yetkilere sahip olacagını burada belirliyorum
             },
 
@@ -137,7 +138,9 @@ namespace MultiShop.IdentityServer
                 ClientName="Multi Shop Manager User",
                 AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
                 ClientSecrets={new Secret("multishopsecret".Sha256()) },
-                AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission","DiscountFullPermission","OrderFullPermission","MessageFullPermission","CargoFullPermission",
+                AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "BasketFullPermission", "OcelotFullPermission", 
+                    "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission","DiscountFullPermission","OrderFullPermission",
+                    "MessageFullPermission","CargoFullPermission",
                 IdentityServerConstants.LocalApi.ScopeName,
                 IdentityServerConstants.StandardScopes.Email,
                 IdentityServerConstants.StandardScopes.OpenId,
@@ -155,7 +158,7 @@ namespace MultiShop.IdentityServer
                 AllowedScopes = { "CatalogFullPermission","CatalogReadPermission",
                 "DiscountFullPermission", "OrderFullPermission", "CargoFullPermission",
                 "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission",
-                "ImageFullPermission","DiscountFullPermission",
+                "ImageFullPermission","DiscountFullPermission","MessageFullPermission",
                 IdentityServerConstants.LocalApi.ScopeName,
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Email,
