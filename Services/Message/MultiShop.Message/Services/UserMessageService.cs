@@ -1,4 +1,7 @@
-﻿using MultiShop.Message.DAL.Context;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using MultiShop.Message.DAL.Context;
+using MultiShop.Message.DAL.Entities;
 using MultiShop.Message.Dtos;
 
 namespace MultiShop.Message.Services;
@@ -6,15 +9,18 @@ namespace MultiShop.Message.Services;
 public class UserMessageService : IUserMessageService
 {
     private readonly MessageContext _messageContext;
+    private readonly IMapper _mapper;
 
-    public UserMessageService(MessageContext messageContext)
+    public UserMessageService(MessageContext messageContext, IMapper mapper)
     {
         _messageContext = messageContext;
+        _mapper = mapper;
     }
 
     public async Task CreateMessageAsync(CreateMessageDto createMessageDto)
     {
-        await _messageContext.UserMessages(createMessageDto);
+        var value = _mapper.Map<UserMessage>(createMessageDto);
+        await _messageContext.UserMessages.AddAsync(value);
     }
 
     public async Task DeleteMessageAsync(int id)
@@ -23,38 +29,45 @@ public class UserMessageService : IUserMessageService
         _messageContext.UserMessages.Remove(values);
     }
 
-    public Task<List<ResultMessageDto>> GetAllMessageAsync()
+    public async Task<List<ResultMessageDto>> GetAllMessageAsync()
     {
-        throw new NotImplementedException();
+        var values = await _messageContext.UserMessages.ToListAsync();
+        return _mapper.Map<List<ResultMessageDto>>(values);
     }
 
-    public Task<GetByIdMessageDto> GetByIdMessageAsync(int id)
+    public async Task<GetByIdMessageDto> GetByIdMessageAsync(int id)
     {
-        throw new NotImplementedException();
+        var value = await _messageContext.UserMessages.FindAsync(id);
+        return _mapper.Map<GetByIdMessageDto>(value);
     }
 
-    public Task<List<ResultInboxMessageDto>> GetInboxMessageAsync(string id)
+    public async Task<List<ResultInboxMessageDto>> GetInboxMessageAsync(string id)
     {
-        throw new NotImplementedException();
+        var values = await _messageContext.UserMessages.Where(x => x.ReceiverId == id).ToListAsync();
+        return _mapper.Map<List<ResultInboxMessageDto>>(values);
     }
 
-    public Task<List<ResultSendboxMessageDto>> GetSendboxMessageAsync(string id)
+    public async Task<List<ResultSendboxMessageDto>> GetSendboxMessageAsync(string id)
     {
-        throw new NotImplementedException();
+        var values = await _messageContext.UserMessages.Where(x => x.SenderId == id).ToListAsync();
+        return _mapper.Map<List<ResultSendboxMessageDto>>(values);
     }
 
-    public Task<int> GetTotalMessageCount()
+    public async Task<int> GetTotalMessageCount()
     {
-        throw new NotImplementedException();
+        var value = await _messageContext.UserMessages.CountAsync();
+        return value;
     }
 
-    public Task<int> GetTotalMessageCountByReceiverId(string id)
+    public async Task<int> GetTotalMessageCountByReceiverId(string id)
     {
-        throw new NotImplementedException();
+        var values = await _messageContext.UserMessages.Where(x => x.ReceiverId == id).CountAsync();
+        return values;
     }
 
-    public Task UpdateMessageAsync(UpdateMessageDto updateMessageDto)
+    public async Task UpdateMessageAsync(UpdateMessageDto updateMessageDto)
     {
-        throw new NotImplementedException();
+        var values = _mapper.Map<UserMessage>(updateMessageDto);
+        _messageContext.UserMessages.Update(values);
     }
 }
