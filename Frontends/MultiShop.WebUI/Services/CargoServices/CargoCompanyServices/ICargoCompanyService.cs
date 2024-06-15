@@ -5,9 +5,9 @@ namespace MultiShop.WebUI.Services.CargoServices.CargoCompanyServices
     public interface ICargoCompanyService
     {
         Task<List<ResultCargoCompanyDto>> GetAllCargoCompanyAsync();
-        Task<UpdateCargoCompanyDto> GetByIdCargoCompanyAsync(string id);
+        Task<UpdateCargoCompanyDto> GetByIdCargoCompanyAsync(int id);
         Task CreateCargoCompanyAsync(CreateCargoCompanyDto createCargoCompanyDto);
         Task UpdateCargoCompanyAsync(UpdateCargoCompanyDto updateCargoCompanyDto);
-        Task DeleteCargoCompanyAsync(string id);
+        Task DeleteCargoCompanyAsync(int id);
     }
 }

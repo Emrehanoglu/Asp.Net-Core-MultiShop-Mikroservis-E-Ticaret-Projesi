@@ -1,32 +1,45 @@
 ﻿using MultiShop.DtoLayer.CargoDtos.CargoCompanyDtos;
+using Newtonsoft.Json;
 
 namespace MultiShop.WebUI.Services.CargoServices.CargoCompanyServices
 {
     public class CargoCompanyService : ICargoCompanyService
     {
-        public Task CreateCargoCompanyAsync(CreateCargoCompanyDto createCargoCompanyDto)
+        private readonly HttpClient _httpClient;
+
+        public CargoCompanyService(HttpClient httpClient)
         {
-            throw new NotImplementedException();
+            _httpClient = httpClient;
         }
 
-        public Task DeleteCargoCompanyAsync(string id)
+        public async Task CreateCargoCompanyAsync(CreateCargoCompanyDto createCargoCompanyDto)
         {
-            throw new NotImplementedException();
+            await _httpClient.PostAsJsonAsync("CargoCompanies", createCargoCompanyDto);
         }
 
-        public Task<List<ResultCargoCompanyDto>> GetAllCargoCompanyAsync()
+        public async Task DeleteCargoCompanyAsync(int id)
         {
-            throw new NotImplementedException();
+            await _httpClient.DeleteAsync("CargoCompanies/" + id);
         }
 
-        public Task<UpdateCargoCompanyDto> GetByIdCargoCompanyAsync(string id)
+        public async Task<List<ResultCargoCompanyDto>> GetAllCargoCompanyAsync()
         {
-            throw new NotImplementedException();
+            var responseMessage = await _httpClient.GetAsync("CargoCompanies");
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultCargoCompanyDto>>(jsonData);
+            return values;
         }
 
-        public Task UpdateCargoCompanyAsync(UpdateCargoCompanyDto updateCargoCompanyDto)
+        public async Task<UpdateCargoCompanyDto> GetByIdCargoCompanyAsync(int id)
         {
-            throw new NotImplementedException();
+            var responseMessage = await _httpClient.GetAsync("CargoCompanies/" + id);
+            var values = await responseMessage.Content.ReadFromJsonAsync<UpdateCargoCompanyDto>();
+            return values;
+        }
+
+        public async Task UpdateCargoCompanyAsync(UpdateCargoCompanyDto updateCargoCompanyDto)
+        {
+            await _httpClient.PutAsJsonAsync<UpdateCargoCompanyDto>("CargoCompanies", updateCargoCompanyDto);
         }
     }
 }
