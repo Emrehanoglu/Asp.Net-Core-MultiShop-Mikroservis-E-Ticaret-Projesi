@@ -26,6 +26,13 @@ public class CargoCustomersController : ControllerBase
         return Ok(values);
     }
 
+    [HttpGet("GetCargoCustomerById/{id}")]
+    public IActionResult GetCargoCustomerById(string id)
+    {
+        var values = _cargoCustomerService.TGetCargoCustomerById(id);
+        return Ok(values);
+    }
+
     [HttpGet("{id}")]
     public IActionResult GetCargoCustomerById(int id)
     {
