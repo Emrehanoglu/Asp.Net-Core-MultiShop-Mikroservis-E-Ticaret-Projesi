@@ -24,6 +24,13 @@ public class DiscountsController : ControllerBase
         return Ok(values);
     }
 
+    [HttpGet("GetDiscountCouponCount")]
+    public async Task<IActionResult> GetDiscountCouponCount()
+    {
+        var values = await _discountService.GetDiscountCouponCount();
+        return Ok(values);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetDiscountCouponById(int id)
     {

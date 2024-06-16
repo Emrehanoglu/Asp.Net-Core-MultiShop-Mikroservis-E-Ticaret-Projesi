@@ -71,6 +71,17 @@ public class DiscountService : IDiscountService
         }
     }
 
+    public async Task<int> GetDiscountCouponCount()
+    {
+        string query = "select Count(*) from Coupons";
+
+        using (var connection = _dapperContext.CreateConnection())
+        {
+            var values = await connection.QueryFirstOrDefaultAsync<int>(query);
+            return values;
+        }
+    }
+
     public async Task<ResultDiscountCouponDto> GetDiscountDetailByCode(string code)
     {
         string query = "select * from Coupons where Code = @code";
