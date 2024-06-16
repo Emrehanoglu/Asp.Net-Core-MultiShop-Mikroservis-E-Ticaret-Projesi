@@ -18,4 +18,34 @@ public class StatisticService : IStatisticService
         _categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
         _brandCollection = database.GetCollection<Brand>(_databaseSettings.BrandCollectionName);
     }
+
+    public async Task<long> GetBrandCount()
+    {
+        return await _brandCollection.CountDocumentsAsync(FilterDefinition<Brand>.Empty);
+    }
+
+    public Task<long> GetCategoryCount()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> GetMaxPriceProductName()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> GetMinPriceProductName()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<decimal> GetProductAvgPrice()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<long> GetProductCount()
+    {
+        throw new NotImplementedException();
+    }
 }
