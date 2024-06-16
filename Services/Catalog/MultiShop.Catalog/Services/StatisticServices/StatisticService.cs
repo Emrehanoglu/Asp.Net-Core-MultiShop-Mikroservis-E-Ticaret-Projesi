@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using MultiShop.Catalog.Entities;
 using MultiShop.Catalog.Settings;
 
@@ -42,14 +43,32 @@ public class StatisticService : IStatisticService
         return product.GetValue("ProductName").AsString;
     }
 
-    public Task<string> GetMinPriceProductName()
+    public async Task<string> GetMinPriceProductName()
     {
-        throw new NotImplementedException();
+        var filter = Builders<Product>.Filter.Empty;
+        var sort = Builders<Product>.Sort.Ascending(x => x.ProductPrice);
+        var projection = Builders<Product>.Projection.Include(y =>
+                                                  y.ProductName).Exclude("ProductId");
+        var product = await _productCollection.Find(filter)
+                                            .Sort(sort)
+                                            .Project(projection)
+                                            .FirstOrDefaultAsync();
+        return product.GetValue("ProductName").AsString;
     }
 
-    public Task<decimal> GetProductAvgPrice()
+    public async Task<decimal> GetProductAvgPrice()
     {
-        throw new NotImplementedException();
+        var pipeline = new BsonDocument[]
+            {
+              new BsonDocument("$group",new BsonDocument
+              {
+                  {"_id",null },
+                  {"averagePrice",new BsonDocument("$avg","$ProductPrice") }
+              })
+            };
+        var result = await _productCollection.AggregateAsync<BsonDocument>(pipeline);
+        var price = result.FirstOrDefault().GetValue("averagePrice", decimal.Zero).AsDecimal;
+        return price;
     }
 
     public async Task<long> GetProductCount()

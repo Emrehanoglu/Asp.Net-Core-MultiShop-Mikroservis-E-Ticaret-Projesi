@@ -35,5 +35,12 @@ namespace MultiShop.Catalog.Controllers
             var value = await _statisticService.GetCategoryCount();
             return Ok(value);
         }
+
+        [HttpGet("GetProductAvgPrice")]
+        public async Task<IActionResult> GetProductAvgPrice()
+        {
+            var value = await _statisticService.GetProductAvgPrice();
+            return Ok(value);
+        }
     }
 }
