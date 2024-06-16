@@ -3,6 +3,7 @@ using MultiShop.WebUI.Services.StatisticServices.DiscountStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.CatalogStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.UserStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.CommentStatisticServices;
+using MultiShop.WebUI.Services.StatisticServices.MessageStatisticServices;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers
 {
@@ -14,13 +15,15 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
         private readonly IUserStatisticService _userStatisticService;
         private readonly IDiscountStatisticService _discountStatisticService;
         private readonly ICommentStatisticService _commentStatisticService;
+        private readonly IMessageStatisticService _messageStatisticService;
 
-        public StatisticController(ICatalogStatisticService catalogStatisticService, IUserStatisticService userStatisticService, IDiscountStatisticService discountStatisticService, ICommentStatisticService commentStatisticService)
+        public StatisticController(ICatalogStatisticService catalogStatisticService, IUserStatisticService userStatisticService, IDiscountStatisticService discountStatisticService, ICommentStatisticService commentStatisticService, IMessageStatisticService messageStatisticService)
         {
             _catalogStatisticService = catalogStatisticService;
             _userStatisticService = userStatisticService;
             _discountStatisticService = discountStatisticService;
             _commentStatisticService = commentStatisticService;
+            _messageStatisticService = messageStatisticService;
         }
 
         [Route("Index")]
@@ -33,6 +36,8 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             var getMinPriceProductName = await _catalogStatisticService.GetMinPriceProductName();
 
             var getUserCount = await _userStatisticService.GetUserCount();
+
+            var getMessageTotalCount = await _messageStatisticService.GetTotalMessageCount();
 
             var getTotalCommentCount = await _commentStatisticService.GetTotalCommentCount();
             var getActiveCommentCount = await _commentStatisticService.GetActiveCommentCount();
@@ -47,6 +52,8 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             ViewBag.getMinPriceProductName = getMinPriceProductName;
 
             ViewBag.getUserCount = getUserCount;
+
+            ViewBag.getMessageTotalCount = getMessageTotalCount;
 
             ViewBag.getTotalCommentCount = getTotalCommentCount;
             ViewBag.getActiveCommentCount = getActiveCommentCount;
