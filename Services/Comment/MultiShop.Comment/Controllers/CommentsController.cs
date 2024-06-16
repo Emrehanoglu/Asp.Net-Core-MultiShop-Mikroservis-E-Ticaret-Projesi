@@ -58,4 +58,22 @@ public class CommentsController : ControllerBase
         _commentContext.SaveChanges();
         return Ok("Comment başarıyla silindi");
     }
+    [HttpGet("GetActiveCommentCount")]
+    public IActionResult GetActiveCommentCount()
+    {
+        int value = _commentContext.UserComments.Where(x=>x.Status==true).Count();
+        return Ok(value);
+    }
+    [HttpGet("GetPassiveCommentCount")]
+    public IActionResult GetPassiveCommentCount()
+    {
+        int value = _commentContext.UserComments.Where(x => x.Status == false).Count();
+        return Ok(value);
+    }
+    [HttpGet("GetTotalCommentCount")]
+    public IActionResult GetTotalCommentCount()
+    {
+        int value = _commentContext.UserComments.Count();
+        return Ok(value);
+    }
 }
