@@ -24,14 +24,22 @@ public class StatisticService : IStatisticService
         return await _brandCollection.CountDocumentsAsync(FilterDefinition<Brand>.Empty);
     }
 
-    public Task<long> GetCategoryCount()
+    public async Task<long> GetCategoryCount()
     {
-        throw new NotImplementedException();
+        return await _categoryCollection.CountDocumentsAsync(FilterDefinition<Category>.Empty);
     }
 
-    public Task<string> GetMaxPriceProductName()
+    public async Task<string> GetMaxPriceProductName()
     {
-        throw new NotImplementedException();
+        var filter = Builders<Product>.Filter.Empty;
+        var sort = Builders<Product>.Sort.Descending(x => x.ProductPrice);
+        var projection = Builders<Product>.Projection.Include(y =>
+                                                  y.ProductName).Exclude("ProductId");
+        var product = await _productCollection.Find(filter)
+                                            .Sort(sort)
+                                            .Project(projection)
+                                            .FirstOrDefaultAsync();
+        return product.GetValue("ProductName").AsString;
     }
 
     public Task<string> GetMinPriceProductName()
@@ -44,8 +52,8 @@ public class StatisticService : IStatisticService
         throw new NotImplementedException();
     }
 
-    public Task<long> GetProductCount()
+    public async Task<long> GetProductCount()
     {
-        throw new NotImplementedException();
+        return await _productCollection.CountDocumentsAsync(FilterDefinition<Product>.Empty);
     }
 }
