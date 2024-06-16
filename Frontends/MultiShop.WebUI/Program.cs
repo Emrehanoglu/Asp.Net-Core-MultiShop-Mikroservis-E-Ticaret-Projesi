@@ -23,6 +23,7 @@ using MultiShop.WebUI.Services.MessageServices;
 using MultiShop.WebUI.Services.OrderServices.OrderAddressServices;
 using MultiShop.WebUI.Services.OrderServices.OrderOrderingServices;
 using MultiShop.WebUI.Services.StatisticServices.CatalogStatisticServices;
+using MultiShop.WebUI.Services.StatisticServices.CommentStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.DiscountStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.UserStatisticServices;
 using MultiShop.WebUI.Services.UserIdentityServices;
@@ -96,6 +97,11 @@ builder.Services.AddHttpClient<ICatalogStatisticService, CatalogStatisticService
 builder.Services.AddHttpClient<IDiscountStatisticService, DiscountStatisticService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<ICommentStatisticService, CommentStatisticService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Comment.Path}");
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 builder.Services.AddHttpClient<IUserStatisticService, UserStatisticService>(opt =>
