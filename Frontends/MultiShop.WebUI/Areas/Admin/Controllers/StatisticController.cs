@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShop.WebUI.Services.StatisticServices.DiscountStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.CatalogStatisticServices;
 using MultiShop.WebUI.Services.StatisticServices.UserStatisticServices;
 
@@ -10,11 +11,13 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
     {
         private readonly ICatalogStatisticService _catalogStatisticService;
         private readonly IUserStatisticService _userStatisticService;
+        private readonly IDiscountStatisticService _discountStatisticService;
 
-        public StatisticController(ICatalogStatisticService catalogStatisticService, IUserStatisticService userStatisticService)
+        public StatisticController(ICatalogStatisticService catalogStatisticService, IUserStatisticService userStatisticService, IDiscountStatisticService discountStatisticService)
         {
             _catalogStatisticService = catalogStatisticService;
             _userStatisticService = userStatisticService;
+            _discountStatisticService = discountStatisticService;
         }
 
         [Route("Index")]
@@ -28,6 +31,8 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
 
             var getUserCount = await _userStatisticService.GetUserCount();
 
+            var getDiscountCouponCount = await _discountStatisticService.GetDiscountCouponCount();
+
             ViewBag.getBrandCount = getBrandCount;
             ViewBag.getProductCount = getProductCount;
             ViewBag.getCategoryCount = getCategoryCount;
@@ -35,6 +40,8 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             ViewBag.getMinPriceProductName = getMinPriceProductName;
 
             ViewBag.getUserCount = getUserCount;
+
+            ViewBag.getDiscountCouponCount = getDiscountCouponCount;
 
             return View();
         }
