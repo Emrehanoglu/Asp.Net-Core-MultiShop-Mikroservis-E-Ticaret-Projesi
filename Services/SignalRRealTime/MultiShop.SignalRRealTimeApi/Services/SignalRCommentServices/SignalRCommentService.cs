@@ -1,6 +1,6 @@
 ﻿namespace MultiShop.SignalRRealTimeApi.Services.SignalRCommentServices
 {
-    public class SignalRCommentService
+    public class SignalRCommentService : ISignalRCommentService
     {
         private readonly HttpClient _httpClient;
         public SignalRCommentService(HttpClient httpClient)

@@ -1,4 +1,5 @@
 using MultiShop.SignalRRealTimeApi.Hubs;
+using MultiShop.SignalRRealTimeApi.Services.SignalRCommentServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,10 @@ builder.Services.AddCors(opt =>
         builder.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true).AllowCredentials();
     });
 });
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<ISignalRCommentService, SignalRCommentService>();
 
 builder.Services.AddSignalR();
 
